@@ -1,0 +1,195 @@
+@import "antd";
+@import "reset";
+@import "variables";
+@import "mixins";
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+	color: $color-text-primary;
+	margin: 0;
+	font-size: 14px;
+	font-family: $font-family;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.remove-body-background {
+	background-color: #ffffff;
+}
+
+code {
+	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+		monospace;
+}
+
+.d-flex {
+	display: flex;
+}
+
+.flex-center-center {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.pl-1 {
+	padding-left: 0.25rem;
+}
+
+.pr-1 {
+	padding-right: 0.25rem;
+}
+
+.pl-2 {
+	padding-left: 0.5rem;
+}
+
+.pr-2 {
+	padding-right: 0.5rem;
+}
+
+.pl-3 {
+	padding-left: 1rem;
+}
+
+.pr-3 {
+	padding-right: 1rem;
+}
+
+.pb-1 {
+	padding-bottom: 0.25rem;
+}
+
+.pt-1 {
+	padding-top: 0.25rem;
+}
+
+.pb-2 {
+	padding-bottom: 0.5rem;
+}
+
+.pt-2 {
+	padding-top: 0.5rem;
+}
+
+.pb-3 {
+	padding-bottom: 1rem;
+}
+
+.pt-3 {
+	padding-top: 1rem;
+}
+
+.ml-1 {
+	margin-left: 0.25rem;
+}
+
+.mr-1 {
+	margin-right: 0.25rem;
+}
+
+.ml-2 {
+	margin-left: 0.5rem;
+}
+
+.mr-2 {
+	margin-right: 0.5rem;
+}
+
+.ml-3 {
+	margin-left: 1rem;
+}
+
+.mr-3 {
+	margin-right: 1rem;
+}
+
+.mb-1 {
+	margin-bottom: 0.25rem;
+}
+
+.mt-1 {
+	margin-top: 0.25rem;
+}
+
+.mb-2 {
+	margin-bottom: 0.5rem;
+}
+
+.mt-2 {
+	margin-top: 0.5rem;
+}
+
+.mb-3 {
+	margin-bottom: 1rem;
+}
+
+.mt-3 {
+	margin-top: 1rem;
+}
+
+.font-weight-500 {
+	font-weight: 500;
+}
+
+.font-weight-600 {
+	font-weight: 600;
+}
+
+.font-12 {
+	font-size: 12px;
+}
+
+.font-13 {
+	font-size: 13px;
+}
+
+.font-14 {
+	font-size: 14px;
+}
+
+.font-15 {
+	font-size: 15px;
+}
+
+.text-light {
+	color: $color-text-light;
+}
+
+.cursor-pointer {
+	cursor: pointer;
+}
+
+.cursor-disabled {
+	cursor: not-allowed;
+}
+
+.text-lighter {
+	color: $color-text-lighter;
+}
+
+.text-danger {
+	color: $color-danger;
+}
+
+.text-success {
+	color: $color-success;
+}
+
+.error-tag {
+	padding: 0px 8px;
+	border: 1px solid #ffa39e;
+	border-radius: 10px;
+	background: #fff1f0;
+	font-weight: 400;
+	font-size: 12px;
+	color: #f5222d;
+}
+
+.text-ellipsis {
+	@include text-ellipsis();
+}
+
+.no-margin{
+  margin:0;
+}

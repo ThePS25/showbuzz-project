@@ -1,0 +1,24 @@
+@import "./variables";
+
+.button-reset {
+  all: unset;
+  cursor: pointer;
+}
+
+.optional_holiday {
+  font-size: smaller;
+  color: #888;
+}
+
+.asset-divider {
+  border-color: $color-input-border-disabled;
+}
+
+.scrollbar {
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: hsl(0, 0%, 90%) hsl(0, 0%, 97%);
+  ::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+  }
+}

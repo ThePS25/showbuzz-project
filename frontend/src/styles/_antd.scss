@@ -1,0 +1,90 @@
+// @import "antd/dist/antd.css";
+@import "variables";
+
+.ant-btn {
+  color: $color-text-primary;
+  background-color: $color-btn;
+  border: none;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  padding: 10px 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+
+  &:hover,
+  &:focus {
+    color: $color-text-primary;
+    background-color: $color-btn;
+  }
+}
+
+.ant-btn-link,
+.ant-btn-text {
+  border: none;
+}
+
+.ant-btn-primary {
+  color: $color-text-primary;
+  background: $color-btn-primary;
+  border-color: $color-btn-primary;
+  text-shadow: none;
+
+  &:hover,
+  &:focus,
+  &[disabled],
+  &[disabled]:hover {
+    color: $color-text-primary;
+    background: $color-btn-primary;
+    border-color: $color-btn-primary;
+    opacity: 0.9;
+  }
+
+  &[disabled],
+  &[disabled]:hover {
+    opacity: 0.4;
+  }
+}
+
+.ant-form-item-explain-error {
+  color: $color-input-error-message;
+}
+
+.ant-input[disabled] {
+  background-color: $color-background-left-menu;
+}
+
+.ant-form-item {
+  .ant-form-item-label>label {
+    height: unset;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.ant-btn.ant-btn-background-ghost {
+  background-color: #fff;
+  border: 2px solid $color-btn-primary;
+  color: $color-text-primary;
+
+  &:focus,
+  &:hover {
+    background-color: #fff;
+    border: 2px solid $color-btn-primary;
+    color: $color-text-primary;
+  }
+}
+
+.ant-avatar-group-popover .ant-avatar-circle .ant-avatar-string {
+  transform: translateX(-50%) !important;
+}
+
+.ant-dropdown-menu-title-content {
+  max-width: 250px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

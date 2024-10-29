@@ -1,0 +1,72 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@ant-design/icons": "^5.5.1",
+    "@giphy/js-fetch-api": "^5.6.0",
+    "@giphy/js-types": "^5.1.0",
+    "@giphy/react-components": "^9.6.0",
+    "@sentry/react": "^8.35.0",
+    "@sentry/tracing": "^7.114.0",
+    "@testing-library/jest-dom": "^5.17.0",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@types/draft-js": "^0.11.18",
+    "@types/draftjs-to-html": "^0.8.4",
+    "@types/html-to-draftjs": "^1.4.3",
+    "@types/jest": "^29.5.14",
+    "@types/node": "^22.8.4",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-draft-wysiwyg": "^1.13.8",
+    "antd": "^5.21.6",
+    "axios": "^1.7.7",
+    "dayjs": "^1.11.13",
+    "dotenv": "^16.4.5",
+    "draft-js": "^0.11.7",
+    "draftjs-to-html": "^0.9.1",
+    "echarts": "^5.5.1",
+    "echarts-for-react": "^3.0.2",
+    "emoji-picker-react": "^4.12.0",
+    "html-to-draftjs": "^1.5.0",
+    "html2canvas": "^1.4.1",
+    "papaparse": "^5.4.1",
+    "react": "^18.3.1",
+    "react-beautiful-dnd": "^13.1.1",
+    "react-d3-tree": "^3.6.2",
+    "react-dom": "^18.3.1",
+    "react-draft-wysiwyg": "^1.15.0",
+    "react-multi-date-picker": "^4.5.2",
+    "react-phone-number-input": "^3.4.9",
+    "react-router-dom": "^6.27.0",
+    "react-scripts": "^5.0.1",
+    "sass": "^1.80.4",
+    "typescript": "^4.9.5",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
