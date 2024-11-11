@@ -16,12 +16,14 @@ enum Role {
 
 model User {
   id        String      @id @default(uuid())
-  first_name String
-  last_name String
-  full_name String
-  email     String   
-  password  String
-  role      String
+  first_name String     @db.VarChar(200)
+  last_name String      @db.VarChar(200)
+  full_name String      @db.VarChar(400)
+  email     String      
+  password  String      @db.VarChar(500)
+  role      String      @default("USER")
+  favorite_sport String?  @db.VarChar(200)
+  hint      String?     @db.VarChar(400)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
