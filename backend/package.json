@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js"
+    "server" : "nodemon index.js",
+    "client": "npm start --prefix ../frontend",  
+    "dev": "concurrently \"npm run server\" \"npm run client\"" 
   },
   "keywords": [],
   "author": "",
@@ -17,7 +19,11 @@
     "express": "^4.21.1",
     "express-validator": "^7.2.0",
     "jsonwebtoken": "^9.0.2",
+    "nodemon": "^3.1.7",
     "pg": "^8.13.1",
     "prisma": "^5.22.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }
