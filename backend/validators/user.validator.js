@@ -19,12 +19,6 @@ const emailRules = body('email')
                       .exists().withMessage('email is required')
                       .isEmail().withMessage('email must be a valid email')
                       .notEmpty().withMessage('email cannot be empty')
-                      .custom(async (email) => {
-                        const user = await prisma.user.findFirst({ where: { email } });
-                        if (user) {
-                          throw new Error('User already exists');
-                        }
-                      });
 
 const passwordRules = body('password')
                       .exists().withMessage('password is required')
@@ -46,6 +40,14 @@ const hintRules = body('hint')
                     .exists().withMessage('hint is required')
                     .isString().withMessage('hint must be a string')
                     .notEmpty().withMessage('hint cannot be empty')
+
+const userExistsRule= body('email')
+                      .custom(async (email) => {
+                      const user = await prisma.user.findFirst({ where: { email } });
+                       if (user) {
+                      throw new Error('User already exists');
+                       }
+                      });
                      
 const signupValidator = [
   firstNameRules,
@@ -54,7 +56,13 @@ const signupValidator = [
   passwordRules,
   roleRules,
   favoriteSportRules,
-  hintRules
+  hintRules,
+  userExistsRule
 ]
 
-module.exports = {  signupValidator };
+const loginValidator = [
+  emailRules,
+  passwordRules
+]
+
+module.exports = {  signupValidator, loginValidator };
