@@ -19,7 +19,7 @@ model User {
   first_name String     @db.VarChar(200)
   last_name String      @db.VarChar(200)
   full_name String      @db.VarChar(400)
-  email     String      
+  email     String      @unique @db.VarChar(200)
   password  String      @db.VarChar(500)
   role      String      @default("USER")
   favorite_sport String?  @db.VarChar(200)
