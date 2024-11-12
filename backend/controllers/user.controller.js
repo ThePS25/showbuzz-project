@@ -1,6 +1,6 @@
-const bcrypt = require("bcryptjs");
 const { PrismaClient } = require("@prisma/client");
 const {generateToken} = require('../utils/generateToken');
+const { hashPassword, findUserByEmail, checkPasswordValidity } = require("../helpers/user.helper");
 
 const prisma = new PrismaClient();
 
@@ -11,7 +11,7 @@ const signup = async (req, res) => {
   
     try {
 
-      const hashedPassword = await bcrypt.hash(password, 10);
+      const hashedPassword = await hashPassword(password);
   
       const user = await prisma.user.create({
         data: { 
@@ -46,7 +46,7 @@ const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials." });
     }
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await checkPasswordValidity(password, user.password);
     if (!isPasswordValid) {
       return res.status(401).json({ message: "Invalid credentials." });
     }
@@ -59,5 +59,37 @@ const login = async (req, res) => {
     }
   };
 
+//----------------------------------update-password-----------------------------------//
 
-module.exports = { signup, login};
+const forgotPassword = async (req, res) => {
+  try{
+  const { email, favorite_sport, new_password } = req.body;
+
+  const user = await findUserByEmail(email);
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  if (user.favorite_sport === favorite_sport) {
+   
+    const hashedPassword = await hashPassword(new_password);
+    await prisma.user.update({
+      where: { email },
+      data: { password: hashedPassword },
+    });
+    return res.status(200).json({ message: "Password updated successfully" });
+
+  } else {
+    return res.status(400).json({
+      message: "Incorrect favorite sport",
+      hint: user.hint || "No hint available",
+    });
+  }}
+
+  catch(error){
+    console.error(error.stack);
+    return res.status(422).send({ status: 'error', message: 'Something went wrong. Please check back again.' });
+  }
+};
+
+module.exports = { signup, login, forgotPassword};

@@ -48,6 +48,11 @@ const userExistsRule= body('email')
                       throw new Error('User already exists');
                        }
                       });
+
+const newPasswordRules = body('new_password')
+                      .exists().withMessage('new_password is required')
+                      .isString().withMessage('new_password must be a string')
+                      .notEmpty().withMessage('new_password cannot be empty')
                      
 const signupValidator = [
   firstNameRules,
@@ -65,4 +70,10 @@ const loginValidator = [
   passwordRules
 ]
 
-module.exports = {  signupValidator, loginValidator };
+const forgotPasswordValidator = [ 
+  emailRules,
+  favoriteSportRules,
+  newPasswordRules
+]
+
+module.exports = {  signupValidator, loginValidator, forgotPasswordValidator };
