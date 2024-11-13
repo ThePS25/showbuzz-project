@@ -53,7 +53,61 @@ const newPasswordRules = body('new_password')
                       .exists().withMessage('new_password is required')
                       .isString().withMessage('new_password must be a string')
                       .notEmpty().withMessage('new_password cannot be empty')
-                     
+
+const idRules= param('id')
+                      .matches(checkUuidRegex).withMessage('id should be a uuid')
+                      .custom(async (id) => {
+                      const user = await prisma.user.findUnique({ where: { id } });
+                       if (!user) {
+                      throw new Error('User does not exist');
+                       }
+                      });
+
+const changePasswordRules = body('change_password')
+                      .optional({ nullable: true })
+                      .isBoolean().withMessage('change_password must be a boolean')
+                      .customSanitizer(value => value?.toString() === 'true'); // Convert to true or false
+                    
+const currentPasswordRules = body('current_password')
+                      .if(body('change_password').equals('true'))
+                      .exists().withMessage('current_password is required when change_password is true')
+                      .isString().withMessage('current_password must be a string')
+                      .notEmpty().withMessage('current_password cannot be empty');
+                    
+const newPassword2Rules = body('new_password')
+                      .if(body('change_password').equals('true'))
+                      .exists().withMessage('new_password is required when change_password is true')
+                      .isString().withMessage('new_password must be a string')
+                      .notEmpty().withMessage('new_password cannot be empty')
+                      .custom((new_password, { req }) => {
+                        if (new_password === req?.body?.current_password) {
+                          throw new Error('new_password cannot be the same as current_password');
+                        }
+                        return true;
+                      });
+                    
+const isActiveRules = body('is_active')
+                      .optional({ nullable: true })
+                      .isBoolean().withMessage('is_active must be a boolean')
+                      .customSanitizer(value => value?.toString() === 'true'); 
+
+const firstName2Rules = body('first_name')
+                      .optional({ nullable: true })
+                      .isString().withMessage('first_name must be a string')
+                      .notEmpty().withMessage('first_name cannot be empty')
+                      .trim()
+
+const lastName2Rules = body('last_name')
+                      .optional({ nullable: true })
+                     .isString().withMessage('last_name must be a string')
+                     .notEmpty().withMessage('last_name cannot be empty')
+                     .trim()
+                   
+const email2Rules = body('email')
+                      .optional({ nullable: true })
+                     .isEmail().withMessage('email must be a valid email')
+                     .notEmpty().withMessage('email cannot be empty')
+
 const signupValidator = [
   firstNameRules,
   lastNameRules,
@@ -76,4 +130,14 @@ const forgotPasswordValidator = [
   newPasswordRules
 ]
 
-module.exports = {  signupValidator, loginValidator, forgotPasswordValidator };
+const userUpdateValidator = [
+  firstName2Rules,
+  lastName2Rules,
+  email2Rules,
+  changePasswordRules,
+  currentPasswordRules,
+  newPassword2Rules,
+  isActiveRules
+]
+
+module.exports = {  signupValidator, loginValidator, forgotPasswordValidator, idRules, userUpdateValidator };

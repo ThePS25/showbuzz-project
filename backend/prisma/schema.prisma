@@ -24,6 +24,7 @@ model User {
   role      String      @default("USER")
   favorite_sport String?  @db.VarChar(200)
   hint      String?     @db.VarChar(400)
+  is_active Boolean     @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }

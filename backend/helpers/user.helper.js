@@ -22,9 +22,12 @@ const hashPassword = async (password) => {
     }
 }
 
-const findUserByEmail = async (email) => {
+const findUser = async (val) => {
     try{
-        const user = await prisma.user.findFirst({ where: { email } });
+        const user = await prisma.user.findFirst({ where: {  OR: [
+            { id: val },
+            { email: val }
+        ]} });
         return user;
     }catch(error){
         console.error(error.stack);
@@ -32,4 +35,4 @@ const findUserByEmail = async (email) => {
     }
 }
 
-module.exports = { checkPasswordValidity, hashPassword, findUserByEmail };
+module.exports = { checkPasswordValidity, hashPassword, findUser };
