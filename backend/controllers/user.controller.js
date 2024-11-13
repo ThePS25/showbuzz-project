@@ -1,6 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const {generateToken} = require('../utils/generateToken');
-const { hashPassword, findUserByEmail, checkPasswordValidity } = require("../helpers/user.helper");
+const { hashPassword, findUser, checkPasswordValidity } = require("../helpers/user.helper");
 
 const prisma = new PrismaClient();
 
@@ -63,14 +63,14 @@ const login = async (req, res) => {
 
 const forgotPassword = async (req, res) => {
   try{
-  const { email, favorite_sport, new_password } = req.body;
+  const { email, favorite_sport, new_password} = req.body;
 
-  const user = await findUserByEmail(email);
+  const user = await findUser(email);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
 
-  if (user.favorite_sport === favorite_sport) {
+  if (user?.favorite_sport === favorite_sport) {
    
     const hashedPassword = await hashPassword(new_password);
     await prisma.user.update({
@@ -92,4 +92,54 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-module.exports = { signup, login, forgotPassword};
+//----------------------------------get-user-----------------------------------//
+
+const getUser = async (req, res) => {
+  try {
+    const user = await prisma.user.findFirst({ where: { id: req.id } });
+
+    return res.status(200).send({ status: 'success', message: 'user retrieved successfully. ', data: user });
+
+  } catch (error) {
+    console.error(error.stack);
+    return res.status(422).send({ status: 'error', message: 'Something went wrong. Please check back again.' });
+  }
+
+};
+
+//----------------------------------update-user-----------------------------------//
+
+const updateUser = async (req, res) => {
+  const { id } = req.params; 
+  const { first_name, last_name, email,is_active, change_password, current_password, new_password } = req.body;
+
+  try {
+
+    const user = await findUser(id);
+    const updatedData = { first_name, last_name, email,is_active };
+
+    if (change_password) {
+      
+      const isPasswordValid = await checkPasswordValidity(current_password, user.password);
+      if (!isPasswordValid) {
+        return res.status(401).json({ message: 'Invalid current password' });
+      }
+
+      const hashedPassword = await hashPassword(new_password);
+      updatedData.password = hashedPassword;
+    }
+
+    await prisma.user.update({
+      where: { id: id },
+      data: updatedData,
+    });
+
+    return res.status(200).send({ status: 'success', message: 'user updated successfully. ' });
+
+  } catch (error) {
+    console.error(error.stack);
+    return res.status(422).send({ status: 'error', message: 'Something went wrong. Please check back again.' });
+  }
+};
+
+module.exports = { signup, login, forgotPassword, getUser, updateUser};
