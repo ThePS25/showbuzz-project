@@ -28,3 +28,31 @@ model User {
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
+
+model Event {
+  id        String      @id @default(uuid())
+  title     String      @db.VarChar(200)
+  description String    @db.VarChar(1000)
+  shows      Show[]
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model Show{
+  id        String      @id @default(uuid())
+  location  String      @db.VarChar(400)
+  show_times ShowTime[]
+  event       Event    @relation(fields: [event_id], references: [id])
+  event_id     String   
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
+
+model ShowTime{
+  id        String      @id @default(uuid())
+  time      DateTime    @db.Timestamp
+  show      Show       @relation(fields: [show_id], references: [id])
+  show_id    String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+}
