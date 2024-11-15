@@ -19,27 +19,32 @@ const emailRules = body('email')
                       .exists().withMessage('email is required')
                       .isEmail().withMessage('email must be a valid email')
                       .notEmpty().withMessage('email cannot be empty')
+                      .trim()
 
 const passwordRules = body('password')
                       .exists().withMessage('password is required')
                         .isString().withMessage('password must be a string')
                         .notEmpty().withMessage('password cannot be empty')
+                        .trim()
 
 const roleRules = body('role')
                     .exists().withMessage('role is required')
                     .isString().withMessage('role must be a string')
                     .notEmpty().withMessage('role cannot be empty')
                     .isIn(['SUPERADMIN', 'ADMIN', 'USER']).withMessage('role must be either SUPERADMIN, ADMIN or USER')
+                    .trim()
 
 const favoriteSportRules = body('favorite_sport')
                             .exists().withMessage('favorite_sport is required')
                             .isString().withMessage('favorite_sport must be a string')
                             .notEmpty().withMessage('favorite_sport cannot be empty')
+                            .trim()
 
 const hintRules = body('hint')
                     .exists().withMessage('hint is required')
                     .isString().withMessage('hint must be a string')
                     .notEmpty().withMessage('hint cannot be empty')
+                    .trim()
 
 const userExistsRule= body('email')
                       .custom(async (email) => {
@@ -49,10 +54,12 @@ const userExistsRule= body('email')
                        }
                       });
 
+
 const newPasswordRules = body('new_password')
                       .exists().withMessage('new_password is required')
                       .isString().withMessage('new_password must be a string')
                       .notEmpty().withMessage('new_password cannot be empty')
+                      .trim()
 
 const idRules= param('id')
                       .matches(checkUuidRegex).withMessage('id should be a uuid')
@@ -66,13 +73,15 @@ const idRules= param('id')
 const changePasswordRules = body('change_password')
                       .optional({ nullable: true })
                       .isBoolean().withMessage('change_password must be a boolean')
-                      .customSanitizer(value => value?.toString() === 'true'); // Convert to true or false
+                      .customSanitizer(value => value?.toString() === 'true');//converts to true or false
+                      
                     
 const currentPasswordRules = body('current_password')
                       .if(body('change_password').equals('true'))
                       .exists().withMessage('current_password is required when change_password is true')
                       .isString().withMessage('current_password must be a string')
                       .notEmpty().withMessage('current_password cannot be empty');
+                      
                     
 const newPassword2Rules = body('new_password')
                       .if(body('change_password').equals('true'))
@@ -107,6 +116,7 @@ const email2Rules = body('email')
                       .optional({ nullable: true })
                      .isEmail().withMessage('email must be a valid email')
                      .notEmpty().withMessage('email cannot be empty')
+                      .trim()
 
 const signupValidator = [
   firstNameRules,

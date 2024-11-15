@@ -25,6 +25,7 @@ model User {
   favorite_sport String?  @db.VarChar(200)
   hint      String?     @db.VarChar(400)
   is_active Boolean     @default(true)
+  events    Event[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 }
@@ -33,6 +34,8 @@ model Event {
   id        String      @id @default(uuid())
   title     String      @db.VarChar(200)
   description String    @db.VarChar(1000)
+  creator_user User     @relation(fields: [creator_user_id], references: [id])
+  creator_user_id String
   shows      Show[]
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
