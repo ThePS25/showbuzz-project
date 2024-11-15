@@ -2,6 +2,7 @@ const router = require("express").Router();
 
 //API-routes
 router.use("/user", require("./user.routes"));
+router.use("/event", require("./event.routes"));
 
 // Health-check endpoint
 router.get("/health-check", (req, res) => {
