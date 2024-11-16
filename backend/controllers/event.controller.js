@@ -76,16 +76,18 @@ const indexEvents = async (req, res) => {
 
     try {
         const data = req.body;
-		const { orderBy = 'created_at', order = 'desc' } = data;
+		const { orderBy = 'created_at', order = 'desc', creator_user_id } = data;
 		const page = Number(req.body.page) || 1;
 		const take = Number(req.body.limit) ? Number(req.body.limit) : 15;
 		const skip = (page - 1) * take;
+        const where = creator_user_id ? { creator_user_id } : {};
 
         const events = await prisma.event.findMany(
             {
 			skip,
 			take,
 			orderBy: { [orderBy]: order },
+            where
             }
         );
         return res.status(200).send({ status: 'success', message: 'events retrieved successfully.', data: events });
