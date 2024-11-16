@@ -72,9 +72,21 @@ const roleAccessValidator = (req, res, next) => {
         next();
       };
 
+const creatorUserIdRules = body('creator_user_id')
+    .optional({ nullable: true })
+    .isString().withMessage('creator_user_id must be a string')
+    .notEmpty().withMessage('creator_user_id cannot be empty')
+    .matches(checkUuidRegex).withMessage('creator_user_id must be a valid UUID')
+    .custom(async (creator_user_id) => {
+        const user = await prisma.user.findUnique({ where: { id: creator_user_id } });
+        if (!user) {
+            throw new Error('User not found for creator_user_id');
+        }
+    });
+
 const createEventValidator = [ titleRules, descriptionRules ];
 const updateEventValidator = [ idRules, title2Rules, description2Rules ];
-const indexEventsValidator = [ pageRules, pageLimitRules, orderByRules, orderRules];
+const indexEventsValidator = [ pageRules, pageLimitRules, orderByRules, orderRules, creatorUserIdRules];
 
 module.exports = { createEventValidator, updateEventValidator, idRules, indexEventsValidator, roleAccessValidator};
 
